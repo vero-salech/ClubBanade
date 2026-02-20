@@ -1,20 +1,26 @@
-import { Header } from "./components/Header";
-import { Hero } from "./components/Hero";
-import { About } from "./components/About";
-import { Sports } from "./components/Sports";
-import { Spaces } from "./components/Spaces";
-import { Footer } from "./components/Footer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Layout } from "./components/Layout";
+import { Home } from "./pages/Home";
+import { About } from "./pages/About";
+import { Sports } from "./pages/Sports";
+import { Activities } from "./pages/Activities";
+import { SocialSpaces } from "./pages/SocialSpaces";
+import { Contact } from "./pages/Contact";
 
 function App() {
   return (
-    <div className="bg-white text-gray-900 font-sans antialiased overflow-x-hidden selection:bg-accent selection:text-black">
-      <Header />
-      <Hero />
-      <About />
-      <Sports />
-      <Spaces />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="el-club" element={<About />} />
+          <Route path="deportes" element={<Sports />} />
+          <Route path="actividades" element={<Activities />} />
+          <Route path="espacios" element={<SocialSpaces />} />
+          <Route path="contacto" element={<Contact />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
