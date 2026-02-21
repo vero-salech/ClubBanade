@@ -1,6 +1,6 @@
 
 import canchaHockeyImg from "../assets/CanchaHockey3.png";
-import canchaBasquetImg from "../assets/CanchaBasquet2.png";
+import canchaBasquetImg from "../assets/CanchaBasquet.png";
 import voleyImg from "../assets/Voley.png";
 
 const DISCIPLINES = [
@@ -10,7 +10,8 @@ const DISCIPLINES = [
         description: "Competencia de alto nivel en ligas metropolitanas con enfoque en técnica y trabajo en equipo.",
         schedule: "Lunes a Viernes 18:00 - 21:00 hs",
         coordinator: { name: "Virginia Morelli", phone: "11-6602-3750" },
-        coordinatorLabel: "Secretaria Administrativa"
+        coordinatorLabel: "Secretaria Administrativa",
+        instagram: "@hockeybanadeoficial"
     },
     {
         title: "Vóley",
@@ -18,6 +19,7 @@ const DISCIPLINES = [
         description: "Entrenamiento técnico riguroso enfocado en la formación de equipos competitivos nacionales.",
         schedule: "Martes y Jueves 19:00 - 22:00 hs",
         coordinator: { name: "Walter Franco", phone: "11-3061-1374" },
+        instagram: "@banadevoley"
     },
     {
         title: "Básquet",
@@ -25,6 +27,7 @@ const DISCIPLINES = [
         description: "Pasión y compromiso en cada cuarto. Formamos líderes dentro y fuera de la cancha.",
         schedule: "Lunes, Miércoles y Viernes 17:00 - 20:00 hs",
         coordinator: { name: "Gustavo Moyano", phone: "11-4195-0309" },
+        instagram: "@banadebasquet"
     }
 ];
 
@@ -89,6 +92,9 @@ export const FederativeSports = () => {
                                             <div>
                                                 <span className="text-sm text-gray-800 font-medium block">{d.coordinator.name}</span>
                                                 <a href={`tel:${d.coordinator.phone}`} className="text-xs text-primary font-medium hover:underline">{d.coordinator.phone}</a>
+                                                {d.instagram && (
+                                                    <a href={`https://instagram.com/${d.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-xs text-primary font-medium hover:underline block">{d.instagram}</a>
+                                                )}
                                             </div>
                                         </div>
                                     </div>

@@ -6,6 +6,7 @@ import { Sports } from "./pages/Sports";
 import { FederativeSports } from "./pages/FederativeSports";
 import { SportsSchools } from "./pages/SportsSchools";
 import { Activities } from "./pages/Activities";
+import { OtherActivities } from "./pages/OtherActivities";
 import { SocialSpaces } from "./pages/SocialSpaces";
 import { Contact } from "./pages/Contact";
 
@@ -19,7 +20,8 @@ function App() {
           <Route path="deportes" element={<Sports />} />
           <Route path="deportes/federativos" element={<FederativeSports />} />
           <Route path="deportes/escuelitas" element={<SportsSchools />} />
-          <Route path="actividades" element={<Activities />} />
+          <Route path="actividades/otras" element={<OtherActivities />} />
+          <Route path="actividades/tercerizadas" element={<Activities />} />
           <Route path="espacios" element={<SocialSpaces />} />
           <Route path="contacto" element={<Contact />} />
         </Route>

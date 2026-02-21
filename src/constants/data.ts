@@ -24,10 +24,11 @@ export const SPORTS_DATA = [
         items: ["Pileta", "Gimnasio"]
     },
     {
-        title: "Tercerizadas",
+        title: "Otras Actividades",
         icon: "sports_tennis",
         color: "accent",
-        items: ["Tenis", "Squash", "Pádel", "Gimnasia Artística"]
+        items: ["Tenis", "Squash", "Pádel", "Gimnasia Artística"],
+        link: "/actividades/tercerizadas"
     }
 ];
 
@@ -56,7 +57,7 @@ export const SPACES_DATA = [
 export const NAV_LINKS = [
     { label: "El Club", path: "/el-club" },
     { label: "Deportes", path: "/deportes" },
-    { label: "Actividades", path: "/actividades" },
+    { label: "Otras Actividades", path: "/actividades" },
     { label: "Espacios Sociales", path: "/espacios" },
     { label: "Contacto", path: "/contacto" }
 ];
