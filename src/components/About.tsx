@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import entradaImg from "../assets/Entrada1.jpeg";
 
 export const About = () => {
@@ -34,6 +35,10 @@ export const About = () => {
                             </div>
                         </div>
                     </div>
+                    <Link to="/el-club" className="inline-flex items-center text-primary font-bold hover:text-red-800 transition-all text-sm mt-6 group">
+                        Conocer más
+                        <span className="material-symbols-outlined text-base ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </Link>
                 </div>
                 <div className="relative h-96 w-full rounded-sm overflow-hidden shadow-xl">
                     <img src={entradaImg} alt="Entrada del Club Banade" className="absolute inset-0 w-full h-full object-cover" />

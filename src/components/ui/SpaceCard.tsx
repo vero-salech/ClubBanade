@@ -1,13 +1,16 @@
+import { Link } from "react-router-dom";
+
 interface SpaceCardProps {
     title: string;
     description: string;
     image: string;
     highlight?: string;
+    link?: string;
 }
 
-export const SpaceCard = ({ title, description, image, highlight }: SpaceCardProps) => {
-    return (
-        <div className="group cursor-default bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500">
+export const SpaceCard = ({ title, description, image, highlight, link }: SpaceCardProps) => {
+    const content = (
+        <>
             <div className="overflow-hidden relative h-64 bg-gray-100">
                 <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
@@ -32,6 +35,14 @@ export const SpaceCard = ({ title, description, image, highlight }: SpaceCardPro
                     <span className="material-symbols-outlined text-primary scale-0 group-hover:scale-100 transition-transform duration-300">arrow_forward</span>
                 </div>
             </div>
-        </div>
+        </>
     );
+
+    const classes = "group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 block";
+
+    if (link) {
+        return <Link to={link} className={classes}>{content}</Link>;
+    }
+
+    return <div className={classes}>{content}</div>;
 };

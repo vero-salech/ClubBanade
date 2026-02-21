@@ -38,20 +38,20 @@ export const SPACES_DATA = [
         title: "Buffet & Restaurant",
         description: "Un ambiente cálido para disfrutar de almuerzos y cenas en familia, con un menú variado y atención personalizada.",
         image: buffetImg,
-        link: "#"
+        link: "/espacios"
     },
     {
         title: "Quinchos y Parrillas",
         description: "Espacios equipados para reuniones. Tasas diferenciadas para socios, ideales para celebraciones privadas.",
         image: mesasArbolesImg,
-        link: "#",
+        link: "/espacios",
         highlight: "socios"
     },
     {
         title: "Salón de Eventos",
         description: "Salón principal disponible para grandes eventos sociales y corporativos, con capacidad adaptable a sus necesidades.",
         image: salonEventosImg,
-        link: "#"
+        link: "/espacios"
     }
 ];
 

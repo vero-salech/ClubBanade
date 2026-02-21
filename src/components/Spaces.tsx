@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { SpaceCard } from "./ui/SpaceCard";
 import { SPACES_DATA } from "../constants/data";
 
@@ -14,10 +15,10 @@ export const Spaces = () => {
                         <h3 className="font-serif text-4xl font-bold text-gray-900 mb-4">Espacios Sociales</h3>
                         <p className="text-lg text-gray-600">Áreas diseñadas exclusivamente para el encuentro, el relax y el disfrute de nuestros socios.</p>
                     </div>
-                    <a className="hidden md:inline-flex items-center text-primary font-bold hover:text-red-800 transition-all text-sm mt-4 md:mt-0 group" href="#">
-                        Ver galería de fotos
+                    <Link className="hidden md:inline-flex items-center text-primary font-bold hover:text-red-800 transition-all text-sm mt-4 md:mt-0 group" to="/espacios">
+                        Ver todos los espacios
                         <span className="material-symbols-outlined text-base ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -28,6 +29,7 @@ export const Spaces = () => {
                             description={space.description}
                             image={space.image}
                             highlight={space.highlight}
+                            link={space.link}
                         />
                     ))}
                 </div>
