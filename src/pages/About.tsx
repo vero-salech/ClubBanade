@@ -267,13 +267,13 @@ export const About = () => {
                             {COMISION_DIRECTIVA.map((m, i) => (
                                 <div
                                     key={`cd-${i}`}
-                                    className={`flex items-center justify-between px-6 py-3.5 ${m.highlight ? 'bg-accent/5 border-l-4 border-accent' : i % 2 === 0 ? 'bg-white' : 'bg-neutral-bg/50'}`}
+                                    className={`flex flex-col sm:flex-row sm:items-center sm:justify-between px-6 py-3.5 gap-0.5 sm:gap-4 ${m.highlight ? 'bg-accent/5 border-l-4 border-accent' : i % 2 === 0 ? 'bg-white' : 'bg-neutral-bg/50'}`}
                                 >
-                                    <span className={`text-sm ${m.highlight ? 'font-bold text-gray-900' : 'text-gray-700'}`}>
-                                        {m.nombre}
-                                    </span>
-                                    <span className={`text-xs uppercase tracking-wider ${m.highlight ? 'text-primary font-bold' : 'text-gray-400 font-semibold'}`}>
+                                    <span className={`text-xs uppercase tracking-wider order-1 sm:order-2 ${m.highlight ? 'text-primary font-bold' : 'text-gray-400 font-semibold'}`}>
                                         {m.cargo}
+                                    </span>
+                                    <span className={`text-sm order-2 sm:order-1 ${m.highlight ? 'font-bold text-gray-900' : 'text-gray-700'}`}>
+                                        {m.nombre}
                                     </span>
                                 </div>
                             ))}
