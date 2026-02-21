@@ -1,4 +1,7 @@
-import { Link } from "react-router-dom";
+
+import canchaHockeyImg from "../assets/CanchaHockey3.png";
+import canchaBasquetImg from "../assets/CanchaBasquet2.png";
+import voleyImg from "../assets/Voley.png";
 
 const DISCIPLINES = [
     {
@@ -6,32 +9,23 @@ const DISCIPLINES = [
         icon: "sports_hockey",
         description: "Competencia de alto nivel en ligas metropolitanas con enfoque en técnica y trabajo en equipo.",
         schedule: "Lunes a Viernes 18:00 - 21:00 hs",
-        categories: ["Primera", "Reserva", "Juveniles"],
-        color: "primary"
+        coordinator: { name: "Virginia Morelli", phone: "11-6602-3750" },
+        coordinatorLabel: "Secretaria Administrativa"
     },
     {
         title: "Vóley",
         icon: "sports_volleyball",
         description: "Entrenamiento técnico riguroso enfocado en la formación de equipos competitivos nacionales.",
         schedule: "Martes y Jueves 19:00 - 22:00 hs",
-        categories: ["Primera", "Reserva", "Juveniles"],
-        color: "primary"
+        coordinator: { name: "Walter Franco", phone: "11-3061-1374" },
     },
     {
         title: "Básquet",
         icon: "sports_basketball",
         description: "Pasión y compromiso en cada cuarto. Formamos líderes dentro y fuera de la cancha.",
         schedule: "Lunes, Miércoles y Viernes 17:00 - 20:00 hs",
-        categories: ["Primera", "Reserva", "Juveniles"],
-        color: "primary"
+        coordinator: { name: "Gustavo Moyano", phone: "11-4195-0309" },
     }
-];
-
-const ACHIEVEMENTS = [
-    { year: "2023", title: "Campeones Metropolitanos", detail: "Hockey Masculino — Primera División A" },
-    { year: "2022", title: "Ascenso Nacional", detail: "Vóley Femenino — Clasificación Liga Nacional" },
-    { year: "2021", title: "Copa de Oro Formativas", detail: "Básquet — Categoría U17 Invictos" },
-    { year: "2019", title: "Fair Play Award", detail: "Reconocimiento Institucional a la Excelencia" },
 ];
 
 export const FederativeSports = () => {
@@ -83,17 +77,19 @@ export const FederativeSports = () => {
                                     <h4 className="font-serif text-xl font-bold text-gray-900">{d.title}</h4>
                                 </div>
                                 <p className="text-gray-600 text-sm leading-relaxed mb-6">{d.description}</p>
-                                <div className="space-y-4">
+                                <div className="space-y-3">
                                     <div className="bg-neutral-bg rounded-lg p-3">
-                                        <span className="text-xs font-bold uppercase tracking-wider text-gray-500 block mb-1">Horarios</span>
+                                        <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-1">Horarios</span>
                                         <span className="text-sm text-gray-800 font-medium">{d.schedule}</span>
                                     </div>
-                                    <div>
-                                        <span className="text-xs font-bold uppercase tracking-wider text-gray-500 block mb-2">Categorías</span>
-                                        <div className="flex gap-2 flex-wrap">
-                                            {d.categories.map((cat) => (
-                                                <span key={cat} className="text-xs px-3 py-1 bg-primary/10 text-primary rounded-full font-medium">{cat}</span>
-                                            ))}
+                                    <div className="bg-neutral-bg rounded-lg p-3">
+                                        <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-1">{d.coordinatorLabel || "Coordinador"}</span>
+                                        <div className="flex items-center gap-2">
+                                            <span className="material-symbols-outlined text-primary text-lg">person</span>
+                                            <div>
+                                                <span className="text-sm text-gray-800 font-medium block">{d.coordinator.name}</span>
+                                                <a href={`tel:${d.coordinator.phone}`} className="text-xs text-primary font-medium hover:underline">{d.coordinator.phone}</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -103,48 +99,54 @@ export const FederativeSports = () => {
                 </div>
             </section>
 
-            {/* Achievements */}
-            <section className="bg-white py-16 px-6">
+            {/* Instalaciones */}
+            <section className="bg-neutral-bg py-16 px-6">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-12">
                         <div className="flex items-center justify-center gap-2 mb-4">
                             <span className="w-12 h-[1px] bg-accent/50"></span>
-                            <span className="text-accent font-bold uppercase text-xs tracking-widest" style={{ textShadow: '0 0 0 #000' }}>Palmarés</span>
+                            <span className="text-accent font-bold uppercase text-xs tracking-widest" style={{ textShadow: '0 0 0 #000' }}>Espacios</span>
                             <span className="w-12 h-[1px] bg-accent/50"></span>
                         </div>
-                        <h3 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nuestros Logros</h3>
+                        <h3 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nuestras Instalaciones</h3>
+                        <p className="text-gray-600 font-light max-w-xl mx-auto">
+                            Espacios de primer nivel para el entrenamiento y la competencia de nuestros equipos.
+                        </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {ACHIEVEMENTS.map((a) => (
-                            <div key={a.year + a.title} className="bg-neutral-bg rounded-xl p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 text-center">
-                                <div className="inline-flex items-center justify-center w-16 h-16 bg-accent/20 rounded-full mb-4">
-                                    <span className="text-2xl font-bold text-accent font-serif">{a.year}</span>
-                                </div>
-                                <h4 className="font-serif text-lg font-bold text-gray-900 mb-2">{a.title}</h4>
-                                <p className="text-gray-500 text-sm">{a.detail}</p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                            <img src={canchaHockeyImg} alt="Cancha de Hockey" className="h-48 w-full object-cover" />
+                            <div className="p-5">
+                                <h4 className="font-serif text-lg font-bold text-gray-900 mb-1">Cancha de Hockey</h4>
+                                <p className="text-sm text-gray-500">Cancha sintética reglamentaria para entrenamientos y partidos oficiales.</p>
                             </div>
-                        ))}
+                        </div>
+                        <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                            <img src={canchaBasquetImg} alt="Canchas de Básquet" className="h-48 w-full object-cover object-bottom" />
+                            <div className="p-5">
+                                <h4 className="font-serif text-lg font-bold text-gray-900 mb-1">Canchas de Básquet</h4>
+                                <p className="text-sm text-gray-500">Canchas techadas y descubiertas con tableros profesionales y pisos de madera.</p>
+                            </div>
+                        </div>
+                        <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                            <img src={voleyImg} alt="Canchas de Vóley" className="h-48 w-full object-cover" />
+                            <div className="p-5">
+                                <h4 className="font-serif text-lg font-bold text-gray-900 mb-1">Canchas de Vóley</h4>
+                                <p className="text-sm text-gray-500">Canchas reglamentarias con red oficial para entrenamiento y competencia.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
-
             {/* CTA */}
             <section className="bg-dark text-white py-16 px-6">
-                <div className="max-w-3xl mx-auto text-center">
+                <div className="max-w-5xl mx-auto text-center">
                     <span className="material-symbols-outlined text-accent text-4xl mb-4">sports_score</span>
                     <h3 className="font-serif text-3xl font-bold mb-4">¿Querés sumarte a nuestros equipos?</h3>
-                    <p className="text-gray-400 font-light mb-8">
-                        Formá parte de la historia del club. Buscamos deportistas comprometidos con los valores del deporte y la superación constante.
+                    <p className="text-gray-400 font-light">
+                        En todos los casos, contactá primero al coordinador de la disciplina que te interese, para confirmar horarios y disponibilidad de vacantes. Luego de las clases de prueba, si decidís continuar, podrás formalizar la inscripción y realizar el pago de la cuota y arancel deportivo correspondiente en la administración del Club.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link to="/contacto" className="px-7 py-3 bg-primary text-white rounded-lg font-semibold text-sm hover:scale-105 transition-transform shadow-lg shadow-primary/20">
-                            Contactar al club
-                        </Link>
-                        <Link to="/deportes" className="px-7 py-3 border-2 border-white/20 text-white rounded-lg font-semibold text-sm hover:border-accent hover:text-accent transition-colors">
-                            Ver horarios
-                        </Link>
-                    </div>
                 </div>
             </section>
         </div>

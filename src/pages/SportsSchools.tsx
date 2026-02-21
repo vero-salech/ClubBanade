@@ -148,7 +148,7 @@ export const SportsSchools = () => {
                                 <h4 className="font-serif text-xl font-bold text-gray-900">¿Cómo inscribirse?</h4>
                             </div>
                             <p className="text-gray-600 text-sm leading-relaxed">
-                                En todos los casos, contactá primero al coordinador de la disciplina que te interese para confirmar horarios y disponibilidad de vacantes. Luego de las dos clases de prueba, si decidís continuar, podrás formalizar la inscripción y el pago de la cuota correspondiente en la administración del Club.
+                                En todos los casos, contactá primero al coordinador de la disciplina que te interese, para confirmar horarios y disponibilidad de vacantes. Luego de las clases de prueba, si decidís continuar, podrás formalizar la inscripción y realizar el pago de la cuota y arancel deportivo correspondiente en la administración del Club.
                             </p>
                         </div>
                     </div>
