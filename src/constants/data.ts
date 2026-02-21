@@ -21,7 +21,8 @@ export const SPORTS_DATA = [
         title: "Instalaciones",
         icon: "pool",
         color: "primary",
-        items: ["Pileta", "Gimnasio"]
+        items: ["Pileta", "Gimnasio"],
+        link: "/actividades/otras"
     },
     {
         title: "Otras Actividades",
