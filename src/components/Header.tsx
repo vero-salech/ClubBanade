@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 export const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [mobileSubOpen, setMobileSubOpen] = useState<string | null>(null);
+    const [hidden, setHidden] = useState(false);
+    const lastScrollY = useRef(0);
     const location = useLocation();
 
     const closeMenu = () => {
@@ -15,9 +17,29 @@ export const Header = () => {
         setMobileSubOpen(mobileSubOpen === key ? null : key);
     };
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentY = window.scrollY;
+            // Don't hide if menu is open or near top
+            if (isMenuOpen || currentY < 80) {
+                setHidden(false);
+            } else if (currentY > lastScrollY.current + 5) {
+                setHidden(true);   // scrolling down
+            } else if (currentY < lastScrollY.current - 5) {
+                setHidden(false);  // scrolling up
+            }
+            lastScrollY.current = currentY;
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [isMenuOpen]);
+
     return (
         <>
-            <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/50 shadow-sm h-16">
+            {/* Spacer to prevent content jump (since header is fixed) */}
+            <div className="h-16" />
+            <header className={`fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/50 shadow-sm h-16 transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'}`}>
                 <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
                     <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity" onClick={closeMenu}>
                         <div className="h-12 w-12 flex items-center justify-center shrink-0">
