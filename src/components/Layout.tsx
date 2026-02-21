@@ -5,7 +5,7 @@ import { ScrollToTop } from "./ScrollToTop";
 
 export const Layout = () => {
     return (
-        <div className="bg-white text-gray-900 font-sans antialiased overflow-x-hidden selection:bg-accent selection:text-black">
+        <div className="bg-white text-gray-900 font-sans antialiased overflow-x-clip selection:bg-accent selection:text-black">
             <ScrollToTop />
             <Header />
             <Outlet />
