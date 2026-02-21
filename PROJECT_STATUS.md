@@ -1,9 +1,9 @@
 # Proyecto: Club Banade Landing Page Institucional
 
 ## Estado Acumulado del Proyecto
-**Última actualización:** 21/02/2026 16:42 hs  
+**Última actualización:** 21/02/2026 19:05 hs  
 **Branch de trabajo:** `verify_Module_01`  
-**Deploy:** Vercel desde `main` (pendiente merge)
+**Deploy:** Vercel desde `main` (sincronizado)
 
 Este documento sirve como "memoria" para futuras sesiones con Antigravity. Resume exactamente dónde estamos y qué falta por hacer.
 
@@ -19,11 +19,11 @@ Este documento sirve como "memoria" para futuras sesiones con Antigravity. Resum
 5. **Control de Versiones:** GitHub → `verify_Module_01` (trabajo) y `main` (deploy Vercel).
 
 ### Fase 1 — Componentes de la Home
-- **Header** (`src/components/Header.tsx`): Navbar sticky con logo + "CLUB BA.NA.DE." + navegación + dropdown de Deportes + dropdown Otras Actividades + **botón "Sede Digital"** destacado en amarillo con ícono de candado (abre en nueva pestaña, exclusivo socios).
+- **Header** (`src/components/Header.tsx`): Navbar fija con efecto **hide on scroll down / show on scroll up** (estilo Instagram). Logo + "CLUB BA.NA.DE." + navegación desktop con dropdowns + **botón "Sede Digital"** destacado en amarillo. Menú móvil con fondo sólido blanco, submenús expandibles (acordeón) para Deportes y Actividades. El menú se renderiza **fuera** del `<header>` para evitar el bug de `backdrop-blur` + `position: fixed`.
 - **Hero** (`src/components/Hero.tsx`): Imagen de fondo con overlay, título "Club Banco Nacional de Desarrollo", badge "Institucional", botones compactos.
 - **Sports** (`src/components/Sports.tsx`): Grid 2x2 con tarjetas de deportes (Federativos, Escuelitas, Instalaciones, Otras Actividades).
 - **Spaces** (`src/components/Spaces.tsx`): Tarjetas de espacios sociales (Buffet, Quinchos, Salón de Eventos) con fotos locales.
-- **About** (`src/components/About.tsx`): Sección "Nuestra Historia y Valores" con foto real de la entrada del club (`Entrada1.jpeg`), datos de Comunidad y Trayectoria (80+ años).
+- **About** (`src/components/About.tsx`): Sección "Nuestra Historia y Valores" con foto real de la entrada del club (`Entrada1.jpeg`), datos de Comunidad y Trayectoria (80+ años). Botón "Conocer más →" que lleva a `/el-club`.
 - **Footer** (`src/components/Footer.tsx`): Pie de página institucional con contacto, horarios, mapa de ubicación.
 - **SportCard** (`src/components/ui/SportCard.tsx`): Componente reutilizable con prop `link` opcional. Muestra "Ver más →" al hacer hover.
 
@@ -135,11 +135,11 @@ Este documento sirve como "memoria" para futuras sesiones con Antigravity. Resum
 - **Mapa de Google Maps** embebido — muestra Hipólito Yrigoyen 1290, Martínez.
 
 ### Navegación entre páginas
-- **Dropdown "Deportes" en navbar:** Despliega "Deportes Federativos" y "Escuelitas Deportivas".
-- **Dropdown "Otras Actividades" en navbar:** Despliega "Otras Actividades" y "Actividades Tercerizadas".
+- **Desktop:** Dropdowns hover para "Deportes" (Federativos + Escuelitas) y "Otras Actividades" (Pileta y Gimnasio + Tercerizadas). Links directos para El Club, Espacios Sociales, Contacto.
+- **Mobile:** Menú hamburguesa con submenús expandibles (acordeón). Fondo blanco sólido. Cierra al navegar.
 - **Botón "Sede Digital"** en navbar: Botón destacado en amarillo con ícono de candado. Abre en nueva pestaña. Exclusivo para socios (href `#` por ahora, pendiente URL real).
-- **Tarjetas clickeables en Home:** Las tarjetas "Federativos" y "Escuelitas" de la sección Sports son links a sus respectivas páginas.
-- **Links directos en navbar:** "El Club" → `/el-club`, "Espacios Sociales" → `/espacios`, "Contacto" → `/contacto`.
+- **Tarjetas clickeables en Home:** Deportes (Federativos, Escuelitas → páginas). Espacios (Buffet, Quinchos, Salón → `/espacios`). About ("Conocer más →" → `/el-club`).
+- **Navbar inteligente:** Se oculta al scrollear hacia abajo y reaparece al scrollear hacia arriba. Siempre visible cuando el menú móvil está abierto o cerca del top.
 - **Rutas en App.tsx:** `/deportes/federativos`, `/deportes/escuelitas`, `/actividades/otras`, `/actividades/tercerizadas`, `/espacios`, `/el-club`, `/contacto`.
 
 ### Texto de inscripción (usado en Federativos y Escuelitas)
@@ -206,18 +206,26 @@ src/
 ### Prioridad Alta
 - [ ] **Sede Digital:** Definir URL real y funcionalidad de acceso exclusivo para socios (el botón en navbar ya está listo, falta el destino).
   - **WhatsApp flotante:** Botón de contacto directo con la secretaría administrativa. Va **dentro de la Sede Digital** (no en la web pública) para que solo lo usen socios y evitar consultas externas no deseadas. El número es distinto al de los coordinadores deportivos (pendiente de confirmar).
-- [ ] **Menú móvil:** El menú hamburguesa del Header tiene los links pero necesita submenús desplegables para Deportes y Actividades.
-- [ ] **Servicio de email para formulario de contacto:** Integrar Formspree, EmailJS o backend para que el formulario de `/contacto` envíe mails realmente.
+- [ ] **Servicio de email para formulario de contacto:** Integrar Formspree, EmailJS o backend para que el formulario de `/contacto` envíe mails realmente. El formulario ya funciona visualmente pero simula el envío.
 
 ### Prioridad Media
-- [ ] **Responsive:** Verificar y pulir el comportamiento en mobile de todas las páginas.
-- [ ] **Animaciones de scroll:** Implementar fade-in-up cuando el usuario scrollea.
+- [ ] **Responsive general:** Verificar y pulir el comportamiento en mobile de todas las páginas (el Header y la CD ya están corregidos).
+- [ ] **Animaciones de scroll:** Implementar fade-in-up cuando el usuario scrollea (secciones).
 - [ ] **Fotos de instalaciones:** Mejorar con fotos más grandes/profesionales donde sea necesario.
 
 ### Prioridad Baja
 - [ ] **SEO:** Meta tags específicas por página.
 - [ ] **Performance:** Optimizar imágenes (lazy loading, formatos WebP).
 - [ ] **Redes sociales:** Links reales a Instagram, Facebook, etc. en el Footer.
+
+### ✅ Completado en esta sesión (21/02 tarde)
+- [x] **Menú móvil:** Submenús expandibles (acordeón), fondo sólido blanco, fix del bug `backdrop-blur`.
+- [x] **Navbar inteligente:** Hide on scroll down, show on scroll up (estilo Instagram).
+- [x] **About page completa:** Timeline con fotos históricas, misión/visión/valores, Comisión Directiva en tabla ejecutiva.
+- [x] **Contact page completa:** Formulario con selector de asunto, sidebar con info + horarios, mapa Google Maps.
+- [x] **Links desde Home:** Tarjetas de espacios → `/espacios`, About → `/el-club`.
+- [x] **CD responsive:** Cargo arriba del nombre en mobile.
+- [x] **Foto entrada en Home:** Sección "Nuestra Historia y Valores" con `Entrada1.jpeg`.
 
 ---
 *Para el Asistente IA del futuro:* Lee este archivo para entender el estado exacto del proyecto. La branch de trabajo es `verify_Module_01`. Vercel deploya automáticamente desde `main`.
