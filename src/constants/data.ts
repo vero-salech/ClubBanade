@@ -7,13 +7,15 @@ export const SPORTS_DATA = [
         title: "Federativos",
         icon: "trophy",
         color: "primary",
-        items: ["Hockey", "Vóley", "Básquet"]
+        items: ["Hockey", "Vóley", "Básquet"],
+        link: "/deportes/federativos"
     },
     {
         title: "Escuelitas",
         icon: "school",
         color: "accent",
-        items: ["Hockey", "Vóley", "Básquet", "Fútbol"]
+        items: ["Hockey", "Vóley", "Básquet", "Fútbol"],
+        link: "/deportes/escuelitas"
     },
     {
         title: "Instalaciones",

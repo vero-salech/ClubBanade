@@ -3,6 +3,8 @@ import { Layout } from "./components/Layout";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Sports } from "./pages/Sports";
+import { FederativeSports } from "./pages/FederativeSports";
+import { SportsSchools } from "./pages/SportsSchools";
 import { Activities } from "./pages/Activities";
 import { SocialSpaces } from "./pages/SocialSpaces";
 import { Contact } from "./pages/Contact";
@@ -15,6 +17,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="el-club" element={<About />} />
           <Route path="deportes" element={<Sports />} />
+          <Route path="deportes/federativos" element={<FederativeSports />} />
+          <Route path="deportes/escuelitas" element={<SportsSchools />} />
           <Route path="actividades" element={<Activities />} />
           <Route path="espacios" element={<SocialSpaces />} />
           <Route path="contacto" element={<Contact />} />

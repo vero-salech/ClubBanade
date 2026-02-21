@@ -48,11 +48,11 @@ export const Header = () => {
                                 </Link>
                                 <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                                     <div className="bg-white rounded-lg shadow-xl border border-gray-100 py-2 min-w-[260px]">
-                                        <Link to="/deportes" onClick={() => { }} className="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">
+                                        <Link to="/deportes/federativos" className="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">
                                             <span className="material-symbols-outlined text-primary text-lg">trophy</span>
                                             Deportes Federativos
                                         </Link>
-                                        <Link to="/deportes" onClick={() => { }} className="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">
+                                        <Link to="/deportes/escuelitas" className="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">
                                             <span className="material-symbols-outlined text-accent text-lg">school</span>
                                             Escuelitas Deportivas
                                         </Link>

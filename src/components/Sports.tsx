@@ -3,9 +3,9 @@ import { SPORTS_DATA } from "../constants/data";
 
 export const Sports = () => {
     return (
-        <section className="bg-neutral-bg py-24 px-6" id="deportes">
+        <section className="bg-neutral-bg py-14 px-6" id="deportes">
             <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-20 max-w-2xl mx-auto">
+                <div className="text-center mb-12 max-w-2xl mx-auto">
                     <div className="flex items-center justify-center gap-2 mb-4">
                         <span className="w-12 h-[1px] bg-primary/30"></span>
                         <span className="text-primary font-bold uppercase text-xs tracking-widest">Disciplinas</span>
@@ -25,6 +25,7 @@ export const Sports = () => {
                             icon={sport.icon}
                             color={sport.color as 'primary' | 'accent'}
                             items={sport.items}
+                            link={sport.link}
                         />
                     ))}
                 </div>

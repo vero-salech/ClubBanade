@@ -52,7 +52,7 @@ export const Hero = () => {
             </div>
 
             {/* Bottom Accent Bar */}
-            <div className="absolute bottom-0 left-0 right-0 h-1.5 flex z-30 opacity-70">
+            <div className="absolute bottom-0 left-0 right-0 h-2.5 flex z-30 opacity-70">
                 <div className="w-1/3 bg-black"></div>
                 <div className="w-1/3 bg-primary"></div>
                 <div className="w-1/3 bg-accent"></div>
