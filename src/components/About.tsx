@@ -1,3 +1,5 @@
+import entradaImg from "../assets/Entrada1.jpeg";
+
 export const About = () => {
     return (
         <section className="bg-white py-20 px-6 border-b border-gray-100" id="club">
@@ -28,16 +30,13 @@ export const About = () => {
                             <span className="material-symbols-outlined text-accent mt-1">history_edu</span>
                             <div>
                                 <h4 className="font-bold text-gray-900 text-sm">Trayectoria</h4>
-                                <p className="text-xs text-gray-500">Más de 75 años de historia.</p>
+                                <p className="text-xs text-gray-500">Más de 80 años de historia.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="relative h-96 w-full rounded-sm overflow-hidden auto shadow-xl bg-gray-100">
-                    <div
-                        className="absolute inset-0 bg-cover bg-center"
-                        style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBj63GkTF9bdDZzZevSJ7oavCOKexzBL3RzqrKD8fFGImcEf15NV1lFnuwq_6S13SoGP9aFcaocyY6JTTnBbYdBtCVTfBAKePYQfrpnLQ3GsqaDFh_cwhxkInZivXdgfdnPLrCG8S7g7rIsOOsHWfScCFNnjzZnAKsvJ4-lpfAGd42YuM6qmbHaZxvv5_R3Aw_CqZdYX8ccfpQSqG4LKM9OegaM_pcyc9t7dnTvVPjCw5igW9YkSEJ2iJJtP3ray7nZ4wsw0rmcJjEp")', opacity: 0.9 }}
-                    ></div>
+                <div className="relative h-96 w-full rounded-sm overflow-hidden shadow-xl">
+                    <img src={entradaImg} alt="Entrada del Club Banade" className="absolute inset-0 w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gray-900/10 mix-blend-multiply"></div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ export const Header = () => {
     const location = useLocation();
 
     return (
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/50 shadow-sm h-20">
+        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/50 shadow-sm h-16">
             <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
                 <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
                     <div className="h-12 w-12 flex items-center justify-center shrink-0">
@@ -127,7 +127,7 @@ export const Header = () => {
             )}
 
             {/* Mobile Menu Drawer */}
-            <div className={`fixed top-20 right-0 bottom-0 w-64 bg-white z-50 shadow-xl transform transition-transform duration-300 lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`fixed top-16 right-0 bottom-0 w-64 bg-white z-50 shadow-xl transform transition-transform duration-300 lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <nav className="flex flex-col p-6 gap-4">
                     {NAV_LINKS.map((link) => (
                         <Link

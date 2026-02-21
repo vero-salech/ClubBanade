@@ -3,7 +3,7 @@ import heroImg from "../assets/ImagenHero.png";
 
 export const Hero = () => {
     return (
-        <section className="relative bg-black text-white min-h-[640px] flex items-center justify-center overflow-hidden">
+        <section className="relative bg-black text-white min-h-[660px] flex items-center justify-center overflow-hidden">
             {/* Background Image & Overlays */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent z-10"></div>
