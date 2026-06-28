@@ -14,7 +14,7 @@ export const SportCard = ({ title, icon, color, items, link }: SportCardProps) =
     const bulletColor = color === 'primary' ? 'bg-primary' : 'bg-accent';
 
     const card = (
-        <div className={`bg-white p-8 rounded-xl shadow-sm border-t-4 ${borderColor} hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group ${link ? 'cursor-pointer' : ''}`}>
+        <div className={`scroll-fade-in bg-white p-8 rounded-xl shadow-sm border-t-4 ${borderColor} hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group h-full flex flex-col ${link ? 'cursor-pointer' : ''}`}>
             <div className="flex items-center gap-3 mb-6">
                 <span className={`material-symbols-outlined ${iconColor} text-4xl group-hover:scale-110 transition-transform`}>{icon}</span>
                 <h4 className="font-serif text-xl font-bold text-gray-900">{title}</h4>
@@ -28,7 +28,7 @@ export const SportCard = ({ title, icon, color, items, link }: SportCardProps) =
                 ))}
             </ul>
             {link && (
-                <div className="mt-6 flex items-center gap-1 text-sm font-semibold text-gray-400 group-hover:text-primary transition-colors">
+                <div className="mt-auto pt-6 flex items-center gap-1 text-sm font-semibold text-gray-400 group-hover:text-primary transition-colors">
                     Ver más <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
                 </div>
             )}

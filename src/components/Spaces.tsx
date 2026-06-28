@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 import { SpaceCard } from "./ui/SpaceCard";
 import { SPACES_DATA } from "../constants/data";
+import { useScrollAnimation, useStaggerAnimation } from "../hooks/useScrollAnimation";
 
 export const Spaces = () => {
+    const headerRef = useScrollAnimation<HTMLDivElement>();
+    const gridRef = useStaggerAnimation<HTMLDivElement>(150);
+
     return (
         <section className="py-24 px-6 bg-white" id="espacios">
             <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-gray-100 pb-8">
+                <div ref={headerRef} className="scroll-fade-in flex flex-col md:flex-row justify-between items-end mb-16 border-b border-gray-100 pb-8">
                     <div className="max-w-xl">
                         <div className="flex items-center gap-2 mb-3">
                             <span className="w-8 h-[2px] bg-accent"></span>
@@ -21,7 +25,7 @@ export const Spaces = () => {
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-10">
                     {SPACES_DATA.map((space, index) => (
                         <SpaceCard
                             key={index}

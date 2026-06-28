@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { SEO } from "../components/SEO";
 
 const SCHOOLS = [
     {
@@ -65,6 +66,11 @@ const VALUES = [
 export const SportsSchools = () => {
     return (
         <div>
+            <SEO
+                title="Escuelitas Deportivas — Formación Infantil"
+                description="Escuelitas de hockey, vóley, básquet y fútbol para niños en Club Banade. Profesores certificados, valores deportivos y formación integral."
+                path="/escuelitas"
+            />
             {/* Hero */}
             <section className="relative bg-dark text-white py-24 px-6 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10"></div>

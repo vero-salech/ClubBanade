@@ -1,5 +1,6 @@
 import piletaImg from "../assets/Pileta.png";
 import pesasImg from "../assets/pesas.png";
+import { SEO } from "../components/SEO";
 
 const OTHER_ACTIVITIES = [
     {
@@ -53,6 +54,11 @@ const POOL_SEASON = {
 export const OtherActivities = () => {
     return (
         <div>
+            <SEO
+                title="Pileta y Gimnasio — Actividades del Club"
+                description="Pileta descubierta y gimnasio equipado en Club Banade. Precios de temporada, beneficios para socios federados y requisitos de ingreso."
+                path="/otras-actividades"
+            />
             {/* Hero */}
             <section className="relative bg-dark text-white py-24 px-6 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10"></div>

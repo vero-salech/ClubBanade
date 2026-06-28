@@ -1,7 +1,24 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import entradaImg from "../assets/Entrada2.jpeg";
+import { SEO } from "../components/SEO";
+
+// ━━━ EmailJS Configuration ━━━
+const EMAILJS_SERVICE_ID = "service_2nogh82";
+const EMAILJS_TEMPLATE_ID = "template_d5ud8qo";
+const EMAILJS_PUBLIC_KEY = "91fj0awUoRANSs8Ls";
+
+// ━━━ Routing: asunto → casilla de destino ━━━
+const EMAIL_ROUTING: Record<string, string> = {
+    deportes: "deportes@clubbanade.com",
+    escuelitas: "deportes@clubbanade.com",
+    quinchos: "administracion@clubbanade.com",
+    administracion: "administracion@clubbanade.com",
+};
+const DEFAULT_EMAIL = "info@clubbanade.com";
 
 export const Contact = () => {
+    const formRef = useRef<HTMLFormElement>(null);
     const [formState, setFormState] = useState({
         nombre: "",
         email: "",
@@ -9,20 +26,50 @@ export const Contact = () => {
         asunto: "",
         mensaje: "",
     });
-    const [submitted, setSubmitted] = useState(false);
+    const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+    const [errorMsg, setErrorMsg] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setFormState({ ...formState, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // TODO: integrar con servicio de email (EmailJS, Formspree, etc.)
-        setSubmitted(true);
+        setStatus("sending");
+        setErrorMsg("");
+
+        const toEmail = EMAIL_ROUTING[formState.asunto] || DEFAULT_EMAIL;
+
+        try {
+            await emailjs.send(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                {
+                    to_email: toEmail,
+                    nombre: formState.nombre,
+                    email: formState.email,
+                    telefono: formState.telefono || "No proporcionado",
+                    asunto: formState.asunto,
+                    mensaje: formState.mensaje,
+                },
+                EMAILJS_PUBLIC_KEY
+            );
+            setStatus("success");
+            setFormState({ nombre: "", email: "", telefono: "", asunto: "", mensaje: "" });
+        } catch (err) {
+            console.error("EmailJS error:", err);
+            setStatus("error");
+            setErrorMsg("Hubo un error al enviar el mensaje. Por favor intentá de nuevo o escribinos a info@clubbanade.com.");
+        }
     };
 
     return (
         <div>
+            <SEO
+                title="Contacto"
+                description="Contactá al Club Banade. Dirección: Hipólito Yrigoyen 1290, Martínez. Teléfono, email y formulario de consulta online."
+                path="/contacto"
+            />
             {/* Hero */}
             <section className="relative bg-dark text-white py-24 px-6 overflow-hidden">
                 <div className="absolute inset-0 z-0">
@@ -64,8 +111,8 @@ export const Contact = () => {
                                     </div>
                                 </div>
 
-                                {!submitted ? (
-                                    <form onSubmit={handleSubmit} className="space-y-5">
+                                {status !== "success" ? (
+                                    <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                             <div>
                                                 <label htmlFor="nombre" className="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1.5">
@@ -80,6 +127,7 @@ export const Contact = () => {
                                                     onChange={handleChange}
                                                     placeholder="Tu nombre"
                                                     className="w-full border border-gray-200 bg-neutral-bg/50 px-4 py-3 rounded-lg text-sm focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all"
+                                                    disabled={status === "sending"}
                                                 />
                                             </div>
                                             <div>
@@ -95,6 +143,7 @@ export const Contact = () => {
                                                     onChange={handleChange}
                                                     placeholder="tu@email.com"
                                                     className="w-full border border-gray-200 bg-neutral-bg/50 px-4 py-3 rounded-lg text-sm focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all"
+                                                    disabled={status === "sending"}
                                                 />
                                             </div>
                                         </div>
@@ -112,6 +161,7 @@ export const Contact = () => {
                                                     onChange={handleChange}
                                                     placeholder="+54 11 ..."
                                                     className="w-full border border-gray-200 bg-neutral-bg/50 px-4 py-3 rounded-lg text-sm focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all"
+                                                    disabled={status === "sending"}
                                                 />
                                             </div>
                                             <div>
@@ -125,10 +175,12 @@ export const Contact = () => {
                                                     value={formState.asunto}
                                                     onChange={handleChange}
                                                     className="w-full border border-gray-200 bg-neutral-bg/50 px-4 py-3 rounded-lg text-sm focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all"
+                                                    disabled={status === "sending"}
                                                 >
                                                     <option value="">Seleccioná un tema</option>
                                                     <option value="socio">Quiero ser socio</option>
-                                                    <option value="deportes">Deportes y escuelitas</option>
+                                                    <option value="deportes">Deportes federativos</option>
+                                                    <option value="escuelitas">Escuelitas deportivas</option>
                                                     <option value="actividades">Actividades</option>
                                                     <option value="quinchos">Reserva de quinchos</option>
                                                     <option value="eventos">Salón de eventos</option>
@@ -151,15 +203,33 @@ export const Contact = () => {
                                                 onChange={handleChange}
                                                 placeholder="Escribí tu consulta..."
                                                 className="w-full border border-gray-200 bg-neutral-bg/50 px-4 py-3 rounded-lg text-sm focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all resize-none"
+                                                disabled={status === "sending"}
                                             ></textarea>
                                         </div>
 
+                                        {status === "error" && (
+                                            <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3 flex items-start gap-2">
+                                                <span className="material-symbols-outlined text-red-500 text-lg mt-0.5">error</span>
+                                                <p className="text-sm text-red-700">{errorMsg}</p>
+                                            </div>
+                                        )}
+
                                         <button
                                             type="submit"
-                                            className="w-full bg-primary text-white font-bold py-3.5 rounded-lg hover:bg-red-800 transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                                            disabled={status === "sending"}
+                                            className="w-full bg-primary text-white font-bold py-3.5 rounded-lg hover:bg-red-800 transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
                                         >
-                                            <span className="material-symbols-outlined text-lg">send</span>
-                                            Enviar consulta
+                                            {status === "sending" ? (
+                                                <>
+                                                    <span className="material-symbols-outlined text-lg animate-spin">progress_activity</span>
+                                                    Enviando...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <span className="material-symbols-outlined text-lg">send</span>
+                                                    Enviar consulta
+                                                </>
+                                            )}
                                         </button>
 
                                         <p className="text-[10px] text-gray-400 text-center">
@@ -177,7 +247,7 @@ export const Contact = () => {
                                         </p>
                                         <button
                                             onClick={() => {
-                                                setSubmitted(false);
+                                                setStatus("idle");
                                                 setFormState({ nombre: "", email: "", telefono: "", asunto: "", mensaje: "" });
                                             }}
                                             className="text-primary font-semibold text-sm hover:underline"

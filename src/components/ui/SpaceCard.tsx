@@ -38,7 +38,7 @@ export const SpaceCard = ({ title, description, image, highlight, link }: SpaceC
         </>
     );
 
-    const classes = "group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 block";
+    const classes = "scroll-fade-in group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 block";
 
     if (link) {
         return <Link to={link} className={classes}>{content}</Link>;

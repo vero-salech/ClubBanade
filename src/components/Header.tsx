@@ -146,17 +146,14 @@ export const Header = () => {
                             Contacto
                         </Link>
 
-                        {/* Sede Digital */}
-                        <a
-                            href="#"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="ml-2 inline-flex items-center gap-1.5 px-4 py-2 bg-accent text-dark text-sm font-bold rounded-lg hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/25 transition-all duration-200 hover:scale-105 active:scale-95"
+                        {/* Mi Banade */}
+                        <Link
+                            to="/mi-banade"
+                            className={`ml-2 inline-flex items-center gap-1.5 px-4 py-2 bg-accent text-dark text-sm font-bold rounded-lg hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/25 transition-all duration-200 hover:scale-105 active:scale-95 ${location.pathname.startsWith("/mi-banade") ? "ring-2 ring-accent/50" : ""}`}
                         >
-                            <span className="material-symbols-outlined text-base">lock</span>
-                            Sede Digital
-                            <span className="material-symbols-outlined text-sm">open_in_new</span>
-                        </a>
+                            <span className="material-symbols-outlined text-base">person</span>
+                            Mi Banade
+                        </Link>
                     </nav>
 
                     {/* Hamburger */}
@@ -250,19 +247,16 @@ export const Header = () => {
                                 Contacto
                             </Link>
 
-                            {/* Sede Digital */}
+                            {/* Mi Banade */}
                             <div className="mt-8 pt-6 border-t border-gray-200 flex flex-col gap-3">
-                                <a
-                                    href="#"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <Link
+                                    to="/mi-banade"
                                     className="flex items-center justify-center gap-2 bg-accent text-dark py-3 rounded-lg font-bold text-sm hover:bg-accent/90 transition-colors"
                                     onClick={closeMenu}
                                 >
-                                    <span className="material-symbols-outlined text-base">lock</span>
-                                    Sede Digital
-                                    <span className="material-symbols-outlined text-sm">open_in_new</span>
-                                </a>
+                                    <span className="material-symbols-outlined text-base">person</span>
+                                    Mi Banade
+                                </Link>
                             </div>
                         </nav>
                     </div>

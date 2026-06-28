@@ -31,9 +31,16 @@ const ACTIVITIES = [
     },
 ];
 
+import { SEO } from "../components/SEO";
+
 export const Activities = () => {
     return (
         <div>
+            <SEO
+                title="Actividades Tercerizadas — Tenis, Gimnasia, Squash y Pádel"
+                description="Tenis, gimnasia artística, squash y pádel en Club Banade. Profesores especializados, canchas profesionales y horarios flexibles."
+                path="/actividades"
+            />
             {/* Hero */}
             <section className="relative bg-dark text-white py-24 px-6 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10"></div>

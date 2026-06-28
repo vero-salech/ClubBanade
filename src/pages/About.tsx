@@ -105,9 +105,16 @@ const TIMELINE = [
     },
 ];
 
+import { SEO } from "../components/SEO";
+
 export const About = () => {
     return (
         <div>
+            <SEO
+                title="El Club — Historia, Misión y Valores"
+                description="Conocé la historia del Club Banade desde 1945, su misión, visión, valores y comisión directiva. Más de 80 años de pasión deportiva en Martínez."
+                path="/el-club"
+            />
             {/* Hero */}
             <section className="relative bg-dark text-white py-24 px-6 overflow-hidden">
                 <div className="absolute inset-0 z-0">

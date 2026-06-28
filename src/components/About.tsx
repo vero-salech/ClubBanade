@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import entradaImg from "../assets/Entrada1.jpeg";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 export const About = () => {
+    const sectionRef = useScrollAnimation<HTMLDivElement>();
+
     return (
         <section className="bg-white py-20 px-6 border-b border-gray-100" id="club">
-            <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div ref={sectionRef} className="scroll-fade-in max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div className="flex flex-col gap-6">
                     <div className="flex items-center gap-2">
                         <span className="w-8 h-[2px] bg-primary"></span>

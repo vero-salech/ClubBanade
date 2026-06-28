@@ -6,6 +6,7 @@ import quincho3Img from "../assets/Quincho3.png";
 import quincho4Img from "../assets/Quincho4.png";
 import quincho5Img from "../assets/Quincho5.png";
 import mesasParrillasImg from "../assets/MesasParrillas.png";
+import { SEO } from "../components/SEO";
 
 /* ── Datos de Quinchos (actualizar precios cada temporada) ── */
 const QUINCHOS = [
@@ -82,6 +83,11 @@ const QUINCHOS = [
 export const SocialSpaces = () => {
     return (
         <div>
+            <SEO
+                title="Espacios Sociales — Buffet, Salón y Quinchos"
+                description="Buffet, salón de eventos y quinchos con parrilla en Club Banade. Precios, capacidad y cómo reservar espacios para tu evento."
+                path="/espacios"
+            />
             {/* Hero */}
             <section className="relative bg-dark text-white py-24 px-6 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10"></div>

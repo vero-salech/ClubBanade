@@ -1,9 +1,11 @@
 # Proyecto: Club Banade Landing Page Institucional
 
 ## Estado Acumulado del Proyecto
-**Última actualización:** 21/02/2026 19:05 hs  
+**Última actualización:** 22/04/2026 17:15 hs  
 **Branch de trabajo:** `verify_Module_01`  
-**Deploy:** Vercel desde `main` (sincronizado)
+**Deploy:** Hostinger via GitHub Actions FTP (desde `main`) + Vercel (backup)  
+**Dominio:** `clubbanade.com` — ✅ Transferencia completada, dominio en Hostinger  
+**Estado del sitio:** 🔴 OFFLINE — Archivos en `public_html_backup`, carpeta `public_html` vacía
 
 Este documento sirve como "memoria" para futuras sesiones con Antigravity. Resume exactamente dónde estamos y qué falta por hacer.
 
@@ -137,13 +139,66 @@ Este documento sirve como "memoria" para futuras sesiones con Antigravity. Resum
 ### Navegación entre páginas
 - **Desktop:** Dropdowns hover para "Deportes" (Federativos + Escuelitas) y "Otras Actividades" (Pileta y Gimnasio + Tercerizadas). Links directos para El Club, Espacios Sociales, Contacto.
 - **Mobile:** Menú hamburguesa con submenús expandibles (acordeón). Fondo blanco sólido. Cierra al navegar.
-- **Botón "Sede Digital"** en navbar: Botón destacado en amarillo con ícono de candado. Abre en nueva pestaña. Exclusivo para socios (href `#` por ahora, pendiente URL real).
+- **Botón "Mi Banade"** en navbar: Botón destacado en amarillo con ícono de usuario. Lleva a `/mi-banade/login`.
 - **Tarjetas clickeables en Home:** Deportes (Federativos, Escuelitas → páginas). Espacios (Buffet, Quinchos, Salón → `/espacios`). About ("Conocer más →" → `/el-club`).
 - **Navbar inteligente:** Se oculta al scrollear hacia abajo y reaparece al scrollear hacia arriba. Siempre visible cuando el menú móvil está abierto o cerca del top.
-- **Rutas en App.tsx:** `/deportes/federativos`, `/deportes/escuelitas`, `/actividades/otras`, `/actividades/tercerizadas`, `/espacios`, `/el-club`, `/contacto`.
+- **Rutas en App.tsx:** `/deportes/federativos`, `/deportes/escuelitas`, `/actividades/otras`, `/actividades/tercerizadas`, `/espacios`, `/el-club`, `/contacto`, `/mi-banade/*`.
 
 ### Texto de inscripción (usado en Federativos y Escuelitas)
 > "En todos los casos, contactá primero al coordinador de la disciplina que te interese, para confirmar horarios y disponibilidad de vacantes. Luego de las clases de prueba, si decidís continuar, podrás formalizar la inscripción y realizar el pago de la cuota y arancel deportivo correspondiente en la administración del Club."
+
+### Fase 7 — Portal de Socios "Mi Banade"
+
+#### Arquitectura del portal
+- **Fondo diferenciado:** `#EDE8D0` (crema cálido) para distinguir visualmente del sitio público (blanco).
+- **Autenticación mock:** Login por DNI + contraseña con datos simulados. Contexto `MemberAuthContext` con estado del socio.
+- **Layout propio:** `MemberLayout.tsx` con sidebar de navegación, header con nombre del socio y botón de cerrar sesión.
+- **Rutas protegidas:** Todas bajo `/mi-banade/*`, redirigen a login si no hay sesión.
+
+#### `/mi-banade/login` — Login de Socios (`src/pages/member/MemberLogin.tsx`)
+- Formulario con campos DNI y contraseña, ícono de mostrar/ocultar password.
+- Logo del club centrado, título "Mi Banade — Portal exclusivo para socios".
+- Link "Volver al sitio" para regresar a la web pública.
+
+#### `/mi-banade/inicio` — Dashboard (`src/pages/member/MemberDashboard.tsx`)
+- **Bienvenida personalizada:** "¡Bienvenido, [nombre]!"
+- **Banner de anuncios:** Torneo de Verano mock con fecha.
+- **5 tarjetas de acciones:**
+  - Mis Solicitudes (activo) → `/mi-banade/solicitudes`
+  - Reservar Quincho (activo) → `/mi-banade/quinchos`
+  - Mi Estado de Cuenta (Próximamente)
+  - Mi Carnet Digital (Próximamente)
+  - Pagar Online (Próximamente)
+- **WhatsApp exclusivo socios:** Card verde con ícono WhatsApp → `wa.me/5491123984714`.
+- **Info rápida:** 3 tarjetas con Nº de socio, Estado (Activo) y DNI.
+
+#### `/mi-banade/solicitudes` — Mis Solicitudes (`src/pages/member/MemberSolicitudes.tsx`)
+- Lista de solicitudes previas (mock) con estados (Pendiente, Aprobada, Rechazada).
+- Botón "Nueva solicitud" → `/mi-banade/solicitudes/nueva`.
+
+#### `/mi-banade/solicitudes/nueva` — Nueva Solicitud (`src/pages/member/NuevaSolicitud.tsx`)
+- **4 tipos:** Licencia, Licencia deportiva (con certificado médico), Baja deportiva, Baja.
+- **Campos dinámicos** según tipo: mes de inicio, duración, deporte, certificado médico (upload), descripción de lesión, motivo.
+- **Envío de email vía EmailJS** a `administracion@clubbanade.com` con todos los detalles.
+- Pantalla de confirmación con badge "Pendiente de revisión".
+
+#### `/mi-banade/quinchos` — Mis Reservas de Quincho (`src/pages/member/MemberQuinchos.tsx`)
+- Lista de reservas previas (mock) con estados.
+- Botón "Nueva reserva" → `/mi-banade/quinchos/nueva`.
+
+#### `/mi-banade/quinchos/nueva` — Nueva Reserva (`src/pages/member/NuevaReservaQuincho.tsx`)
+- **Selector de espacio:** 7 opciones (Quincho 1-5, Mesas al aire libre, Parrillas) con capacidad.
+- **Calendario visual:** Navegación por mes, días ocupados tachados en rojo, selección en rojo primario.
+- **Campos de asistentes:** Socios (mín 1) y No socios (mín 0) con cálculo automático del total.
+- **Observaciones** opcionales.
+- **Envío de email vía EmailJS** a `administracion@clubbanade.com` con espacio, fecha, asistentes.
+- Pantalla de confirmación con badge "Pendiente de confirmación".
+
+#### Infraestructura del portal
+- **`src/utils/memberEmail.ts`:** Helper reutilizable para envío de emails vía EmailJS. Usa el mismo servicio/template que la página de Contacto (`service_2nogh82`, `template_d5ud8qo`).
+- **`src/contexts/MemberAuthContext.tsx`:** Contexto React con login/logout mock, datos del socio (nombre, DNI, nroSocio, categoría).
+- **`src/components/member/MemberLayout.tsx`:** Layout con sidebar, fondo crema, navegación interna.
+- **`src/components/SEO.tsx`:** Componente SEO reutilizable para meta tags por página.
 
 ---
 
@@ -151,52 +206,42 @@ Este documento sirve como "memoria" para futuras sesiones con Antigravity. Resum
 
 ```
 src/
-├── assets/
-│   ├── ImagenHero.png          # Foto del Hero principal
-│   ├── Buffet.png              # Espacio social - Buffet
-│   ├── MesasArboles.png        # Quinchos panorámica
-│   ├── SalonEventos.jpg        # Salón de eventos
-│   ├── CanchaHockey3.png       # Instalaciones - Hockey
-│   ├── CanchaBasquet.png       # Instalaciones - Básquet
-│   ├── CanchaBasquet2.png      # Foto alternativa de básquet
-│   ├── Voley.png               # Instalaciones - Vóley
-│   ├── Pileta.png              # Pileta (Otras Actividades)
-│   ├── pesas.png               # Gimnasio (Otras Actividades)
-│   ├── Quincho1-5.png          # Fotos de quinchos individuales
-│   ├── MesasParrillas.png      # Mesa y banco con parrilla
-│   ├── Entrada1.jpeg           # Entrada del club (Home About + About hero)
-│   ├── Entrada2.jpeg           # Entrada lateral (Contact hero)
-│   ├── Fundacion1.png          # Foto histórica inauguración Illia 1966
-│   ├── Inauguracion1.png       # Fachada original C.A.B.I.R.A.
-│   ├── Banco.png               # Edificio Banco Nacional de Desarrollo
-│   ├── FloresBanade.jpeg       # Letras BANADE con flores (cierre About)
-│   ├── Jardin1.jpeg            # Jardín del club (disponible, sin usar)
-│   ├── Jardin2.jpeg            # Jardín del club (disponible, sin usar)
-│   ├── Arboles.png, Plaza.png  # Fotos panorámicas del predio
-│   └── LogoHockey.png, LogoVoley.png  # Logos deportivos
+├── assets/                      # Imágenes del sitio público
+│   ├── ImagenHero.png, Buffet.png, MesasArboles.png, SalonEventos.jpg
+│   ├── CanchaHockey3.png, CanchaBasquet.png, Voley.png
+│   ├── Pileta.png, pesas.png, Quincho1-5.png, MesasParrillas.png
+│   ├── Entrada1.jpeg, Entrada2.jpeg, Fundacion1.png, Inauguracion1.png
+│   ├── Banco.png, FloresBanade.jpeg, Arboles.png, Plaza.png
+│   └── LogoHockey.png, LogoVoley.png
 ├── components/
-│   ├── Header.tsx              # Navbar con dropdowns + Sede Digital
+│   ├── Header.tsx              # Navbar con dropdowns + Mi Banade
 │   ├── Hero.tsx                # Banner principal
-│   ├── About.tsx               # Sección "Nuestra Historia y Valores" (Home)
-│   ├── Sports.tsx              # Sección deportes (Home)
-│   ├── Spaces.tsx              # Espacios sociales (Home)
-│   ├── Footer.tsx              # Pie de página
-│   ├── Layout.tsx              # Layout con Outlet
-│   ├── ScrollToTop.tsx         # Scroll al top en cambio de ruta
-│   └── ui/SportCard.tsx        # Tarjeta deportiva reutilizable
+│   ├── About.tsx               # Sección historia (Home)
+│   ├── Sports.tsx, Spaces.tsx  # Secciones Home
+│   ├── Footer.tsx, Layout.tsx, ScrollToTop.tsx
+│   ├── SEO.tsx                 # Meta tags por página
+│   ├── member/
+│   │   └── MemberLayout.tsx    # Layout del portal de socios ✅
+│   └── ui/SportCard.tsx
+├── contexts/
+│   └── MemberAuthContext.tsx   # Auth mock para socios ✅
+├── utils/
+│   └── memberEmail.ts          # Helper EmailJS para notificaciones ✅
 ├── constants/
-│   └── data.ts                 # Datos centralizados (deportes, espacios, nav links)
+│   └── data.ts                 # Datos centralizados
 ├── pages/
-│   ├── Home.tsx                # Página principal
-│   ├── About.tsx               # El Club — historia, valores, CD ✅
-│   ├── Sports.tsx              # Deportes (general, placeholder)
-│   ├── FederativeSports.tsx    # Deportes Federativos ✅
-│   ├── SportsSchools.tsx       # Escuelitas Deportivas ✅
-│   ├── Activities.tsx          # Actividades Tercerizadas ✅
-│   ├── OtherActivities.tsx     # Otras Actividades (Pileta + Gimnasio) ✅
-│   ├── SocialSpaces.tsx        # Espacios Sociales ✅
-│   └── Contact.tsx             # Contacto con formulario ✅
-└── App.tsx                     # Router principal
+│   ├── Home.tsx, About.tsx, Contact.tsx
+│   ├── FederativeSports.tsx, SportsSchools.tsx
+│   ├── Activities.tsx, OtherActivities.tsx, SocialSpaces.tsx
+│   └── member/                 # Portal de socios ✅
+│       ├── MemberLogin.tsx
+│       ├── MemberDashboard.tsx
+│       ├── MemberSolicitudes.tsx
+│       ├── NuevaSolicitud.tsx
+│       ├── MemberQuinchos.tsx
+│       ├── NuevaReservaQuincho.tsx
+│       └── MemberComingSoon.tsx
+└── App.tsx                     # Router principal (público + /mi-banade/*)
 ```
 
 ---
@@ -204,21 +249,21 @@ src/
 ## 🎯 Roadmap — Próximos Pasos (Pendiente)
 
 ### Prioridad Alta
-- [ ] **Sede Digital:** Definir URL real y funcionalidad de acceso exclusivo para socios (el botón en navbar ya está listo, falta el destino).
-  - **WhatsApp flotante:** Botón de contacto directo con la secretaría administrativa. Va **dentro de la Sede Digital** (no en la web pública) para que solo lo usen socios y evitar consultas externas no deseadas. El número es distinto al de los coordinadores deportivos (pendiente de confirmar).
-- [ ] **Servicio de email para formulario de contacto:** Integrar Formspree, EmailJS o backend para que el formulario de `/contacto` envíe mails realmente. El formulario ya funciona visualmente pero simula el envío.
+- [ ] **Deploy a Hostinger:** Commitear cambios, merge a `main`, y GitHub Actions deploya automáticamente via FTP.
+- [ ] **Formulario de contacto real:** El formulario de `/contacto` simula el envío. Integrar EmailJS (ya está configurado para el portal).
+- [ ] **Backend real para Mi Banade:** Reemplazar datos mock con autenticación y datos reales (Supabase, API, etc.).
 
 ### Prioridad Media
-- [ ] **Responsive general:** Verificar y pulir el comportamiento en mobile de todas las páginas (el Header y la CD ya están corregidos).
-- [ ] **Animaciones de scroll:** Implementar fade-in-up cuando el usuario scrollea (secciones).
-- [ ] **Fotos de instalaciones:** Mejorar con fotos más grandes/profesionales donde sea necesario.
+- [ ] **Responsive general:** Verificar mobile en todas las páginas.
+- [ ] **Animaciones de scroll:** Fade-in-up al scrollear.
+- [ ] **Fotos de instalaciones:** Mejorar calidad donde sea necesario.
 
 ### Prioridad Baja
-- [ ] **SEO:** Meta tags específicas por página.
-- [ ] **Performance:** Optimizar imágenes (lazy loading, formatos WebP).
-- [ ] **Redes sociales:** Links reales a Instagram, Facebook, etc. en el Footer.
+- [ ] **SEO avanzado:** Meta tags dinámicas por página (componente SEO ya existe).
+- [ ] **Performance:** Lazy loading, WebP.
+- [ ] **Redes sociales:** Links reales en Footer.
 
-### ✅ Completado en esta sesión (21/02 tarde)
+### ✅ Completado en sesión 21/02 tarde
 - [x] **Menú móvil:** Submenús expandibles (acordeón), fondo sólido blanco, fix del bug `backdrop-blur`.
 - [x] **Navbar inteligente:** Hide on scroll down, show on scroll up (estilo Instagram).
 - [x] **About page completa:** Timeline con fotos históricas, misión/visión/valores, Comisión Directiva en tabla ejecutiva.
@@ -227,5 +272,40 @@ src/
 - [x] **CD responsive:** Cargo arriba del nombre en mobile.
 - [x] **Foto entrada en Home:** Sección "Nuestra Historia y Valores" con `Entrada1.jpeg`.
 
+### ✅ Completado en sesión 15/04 — Migración a Hostinger
+- [x] **Transferencia de dominio:** `clubbanade.com` de Don Web → Hostinger.
+- [x] **Build de producción + deploy manual + `.htaccess` para SPA.**
+- [x] **GitHub Actions CI/CD:** Workflow `deploy-hostinger.yml` — push a `main` → build → FTP deploy.
+- [x] **GitHub Secrets configurados:** `FTP_HOST` (212.85.6.10), `FTP_USERNAME` (u806894223), `FTP_PASSWORD`, `FTP_PORT` (21).
+- [x] **Auditoría de seguridad del repo:** Sin secrets, sin `.env`, repo público seguro.
+
+### ✅ Completado en sesión 22/04 — Transferencia de dominio + Offline
+- [x] **Transferencia de dominio completada:** `clubbanade.com` 100% en Hostinger.
+- [x] **Sitio puesto Offline intencionalmente:** `public_html` → `public_html_backup`.
+
+### ✅ Completado en sesión 27/06 — Portal "Mi Banade"
+- [x] **Portal completo de socios** con login, dashboard, solicitudes y reservas de quinchos.
+- [x] **Botón "Mi Banade" en navbar** (antes era "Sede Digital") — lleva a `/mi-banade/login`.
+- [x] **Fondo crema diferenciado** `#EDE8D0` para el portal de socios.
+- [x] **Formularios de solicitudes** con 4 tipos, campos dinámicos y validación.
+- [x] **Reserva de quinchos** con calendario visual, selector de espacio y campos de asistentes (socios/no socios).
+- [x] **EmailJS integrado** en solicitudes y quinchos — envía notificación a `administracion@clubbanade.com`.
+- [x] **WhatsApp exclusivo socios** en dashboard → `wa.me/5491123984714`.
+- [x] **Componente SEO** reutilizable con meta tags por página.
+- [x] **Animaciones de scroll** (fade-in-up) implementadas.
+
+### 📋 Procedimiento para deployar a Hostinger
+1. **Commitear cambios:** `git add . && git commit -m "feat: portal Mi Banade"`
+2. **Merge a main:** `git checkout main && git merge verify_Module_01 && git push origin main`
+3. **GitHub Actions deploya automáticamente** via FTP a `public_html/`.
+4. Si `public_html` estaba vacía (sitio offline), los archivos se subirán ahí y el sitio quedará **online**.
+5. Si se quiere mantener offline, mover los archivos de `public_html` a `public_html_backup` después del deploy.
+
+### ⏳ Pendiente antes de publicar
+- [ ] **Configurar SSL (HTTPS):** Activar certificado SSL gratuito en Hostinger.
+- [ ] **Revisión final del contenido:** Confirmar que toda la info sea correcta y actualizada.
+- [ ] **Formulario de contacto real:** Integrar EmailJS en `/contacto`.
+- [ ] **Desconectar Vercel (opcional):** Evaluar si mantener como preview/backup.
+
 ---
-*Para el Asistente IA del futuro:* Lee este archivo para entender el estado exacto del proyecto. La branch de trabajo es `verify_Module_01`. Vercel deploya automáticamente desde `main`.
+*Para el Asistente IA del futuro:* Lee este archivo para entender el estado exacto del proyecto. La branch de trabajo es `verify_Module_01`. **Deploy principal:** GitHub Actions deploya automáticamente a Hostinger (FTP) en cada push a `main`. Vercel sigue activo como backup en `club-banade.vercel.app`. **DOMINIO:** `clubbanade.com` ya está en Hostinger (transferencia completada 22/04/2026). **ESTADO actual:** El sitio está OFFLINE — `public_html` está vacía (archivos previos en `public_html_backup`). Al hacer push a `main`, GitHub Actions subirá los archivos nuevos a `public_html` y el sitio volverá a estar online. **PORTAL MI BANADE:** Funciona con datos mock — pendiente backend real. EmailJS ya configurado para notificaciones.

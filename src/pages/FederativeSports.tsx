@@ -2,6 +2,7 @@
 import canchaHockeyImg from "../assets/CanchaHockey3.png";
 import canchaBasquetImg from "../assets/CanchaBasquet.png";
 import voleyImg from "../assets/Voley.png";
+import { SEO } from "../components/SEO";
 
 const DISCIPLINES = [
     {
@@ -34,6 +35,11 @@ const DISCIPLINES = [
 export const FederativeSports = () => {
     return (
         <div>
+            <SEO
+                title="Deportes Federativos — Hockey, Vóley y Básquet"
+                description="Club Banade compite en hockey, vóley y básquet en ligas oficiales. Conocé horarios, coordinadores e instalaciones deportivas en Martínez."
+                path="/deportes-federativos"
+            />
             {/* Hero */}
             <section className="relative bg-dark text-white py-24 px-6 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10"></div>

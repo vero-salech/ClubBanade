@@ -1,7 +1,9 @@
 import { SportCard } from "./ui/SportCard";
 import { SPORTS_DATA } from "../constants/data";
+import { useStaggerAnimation } from "../hooks/useScrollAnimation";
 
 export const Sports = () => {
+    const gridRef = useStaggerAnimation<HTMLDivElement>(120);
     return (
         <section className="bg-neutral-bg py-14 px-6" id="deportes">
             <div className="max-w-7xl mx-auto">
@@ -17,7 +19,7 @@ export const Sports = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {SPORTS_DATA.map((sport, index) => (
                         <SportCard
                             key={index}
